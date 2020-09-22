@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.detonadev.course.entities.Categoria;
 import com.detonadev.course.entities.Pedido;
+import com.detonadev.course.entities.Produto;
 import com.detonadev.course.entities.User;
 import com.detonadev.course.entities.enums.StatusPedido;
 import com.detonadev.course.repositories.CategoriaRepository;
 import com.detonadev.course.repositories.PedidoRepository;
+import com.detonadev.course.repositories.ProdutoRepository;
 import com.detonadev.course.repositories.UserRepository;
 
 @Configuration
@@ -28,6 +30,9 @@ public class TestConfig implements CommandLineRunner {
 	
 	@Autowired
 	private CategoriaRepository categoriaRepository;
+	
+	@Autowired
+	private ProdutoRepository produtoRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -36,7 +41,14 @@ public class TestConfig implements CommandLineRunner {
 		Categoria cat2 = new Categoria(null, "Livros");
 		Categoria cat3 = new Categoria(null, "Computadores");
 		
+		Produto pr1 = new Produto(null, "The Lord of the Rings", "Lorem ipsum dolor sit amet, consectetur.", 90.5, "");
+		Produto pr2 = new Produto(null, "Smart TV", "Nulla eu imperdiet purus. Maecenas ante.", 2190.0, "");
+		Produto pr3 = new Produto(null, "Macbook Pro", "Nam eleifend maximus tortor, at mollis.", 1250.0, "");
+		Produto pr4 = new Produto(null, "PC Gamer", "Donec aliquet odio ac rhoncus cursus.", 1200.0, "");
+		Produto pr5 = new Produto(null, "Rails for Dummies", "Cras fringilla convallis sem vel faucibus.", 100.99, "");		
+				
 		categoriaRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
+		produtoRepository.saveAll(Arrays.asList(pr1, pr2, pr3, pr4, pr5));
 		
 		User u1 = new User(null, "Ana Maria", "maria@gmail.com", "98888888", "123456");
 		User u2 = new User(null, "Alex Vieira", "alex@gmail.com", "97777777", "123456");
