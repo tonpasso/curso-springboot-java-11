@@ -8,14 +8,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 @Entity
 @Table(name = "tb_produto")
-public class Produto implements Serializable {	
+public class Produto implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -23,11 +26,12 @@ public class Produto implements Serializable {
 	private String descricao;
 	private double preco;
 	private String imgUrl;
-	
-	@Transient
+
+	@ManyToMany
+	@JoinTable(name = "tb_produto_categoria", joinColumns = @JoinColumn(name = "produto_id"), inverseJoinColumns = @JoinColumn(name = "categoria_id"))
 	private Set<Categoria> categorias = new HashSet<>();
-	
-	public Produto() {		
+
+	public Produto() {
 	}
 
 	public Produto(Long id, String nome, String descricao, double preco, String imgUrl) {
@@ -36,8 +40,8 @@ public class Produto implements Serializable {
 		this.nome = nome;
 		this.descricao = descricao;
 		this.preco = preco;
-		this.imgUrl = imgUrl;	
-		
+		this.imgUrl = imgUrl;
+
 	}
 
 	public Long getId() {
@@ -79,7 +83,7 @@ public class Produto implements Serializable {
 	public void setImgUrl(String imgUrl) {
 		this.imgUrl = imgUrl;
 	}
-	
+
 	public Set<Categoria> getCategorias() {
 		return categorias;
 	}
@@ -108,7 +112,5 @@ public class Produto implements Serializable {
 			return false;
 		return true;
 	}
-
-	
 
 }
