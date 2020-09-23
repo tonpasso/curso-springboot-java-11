@@ -2,6 +2,8 @@ package com.detonadev.course.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.detonadev.course.entities.enums.StatusPedido;
@@ -31,6 +34,9 @@ public class Pedido implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
 	private User cliente;
+	
+	@OneToMany(mappedBy = "id.pedido")
+	private Set<PedidoItem> itens = new HashSet<>();
 	
 	public Pedido() {		
 	}
@@ -76,6 +82,10 @@ public class Pedido implements Serializable {
 
 	public void setCliente(User cliente) {
 		this.cliente = cliente;
+	}
+	
+	public Set<PedidoItem> getItens(){
+		return itens;
 	}
 
 	@Override

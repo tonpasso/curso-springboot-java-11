@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.detonadev.course.entities.Categoria;
 import com.detonadev.course.entities.Pedido;
+import com.detonadev.course.entities.PedidoItem;
 import com.detonadev.course.entities.Produto;
 import com.detonadev.course.entities.User;
 import com.detonadev.course.entities.enums.StatusPedido;
 import com.detonadev.course.repositories.CategoriaRepository;
+import com.detonadev.course.repositories.PedidoItemRepository;
 import com.detonadev.course.repositories.PedidoRepository;
 import com.detonadev.course.repositories.ProdutoRepository;
 import com.detonadev.course.repositories.UserRepository;
@@ -33,6 +35,9 @@ public class TestConfig implements CommandLineRunner {
 	
 	@Autowired
 	private ProdutoRepository produtoRepository;
+	
+	@Autowired
+	private PedidoItemRepository pedidoItemRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -68,6 +73,13 @@ public class TestConfig implements CommandLineRunner {
 		
 		userRepository.saveAll(Arrays.asList(u1, u2));		
 		pedidoRepository.saveAll(Arrays.asList(p1, p2, p3));
+		
+		PedidoItem pi1 = new PedidoItem(p1, pr1, 2, pr1.getPreco());
+		PedidoItem pi2 = new PedidoItem(p1, pr3, 1, pr4.getPreco());
+		PedidoItem pi3 = new PedidoItem(p2, pr3, 3, pr1.getPreco());
+		PedidoItem pi4 = new PedidoItem(p3, pr5, 1, pr5.getPreco());
+		
+		pedidoItemRepository.saveAll(Arrays.asList(pi1, pi2, pi3, pi4));
 	}
 	
 	
